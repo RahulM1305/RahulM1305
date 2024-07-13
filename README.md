@@ -1,5 +1,5 @@
 # 💫 About Me:
-Hi there! I'm Rahul Mishra, a 3rd Year Computer Science student passionate about Web Development. Currently pursuing my Computer Science and Engineering at MVJ College of Engineering,.<br><br>🌱 I’m currently learning: NodeJs and MongoDB<br>
+Hi there! I'm Rahul Mishra, a 3rd Year student passionate about Web Development. Currently pursuing my Computer Science and Engineering at MVJ College of Engineering,.<br><br>🌱 I’m currently learning: NodeJs and MongoDB<br>
 
 
 ## 🌐 Socials:
