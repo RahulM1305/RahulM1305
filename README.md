@@ -7,7 +7,6 @@
 
 
 
-<p align="left"> <a href="https://twitter.com/rahulm1305" target="blank"><img src="https://img.shields.io/twitter/follow/rahulm1305?logo=twitter&style=for-the-badge" alt="rahulm1305" /></a> </p>
 
 - 🌱 I’m currently learning **Nodejs**
 
