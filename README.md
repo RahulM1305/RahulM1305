@@ -8,7 +8,7 @@
 
 
 
-- 🌱 I’m currently learning **Nodejs**
+- 🌱 I’m currently learning **Docker**
 
 - 👨‍💻 All of my projects are available at [https://rahul-mishra-myportfolio.vercel.app/](https://rahul-mishra-myportfolio.vercel.app/)
 
