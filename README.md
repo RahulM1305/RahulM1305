@@ -10,7 +10,7 @@
 
 - 🌱 I’m currently learning **Flutter**
 
-- 👨‍💻 Visit my [portfolio][https://rahul-mishra-myportfolio.vercel.app/]
+- 👨‍💻 Visit my [portfolio](https://rahul-mishra-myportfolio.vercel.app/)
 
 - 📫 You can contact me at  **rahulamishra1305@gmail.com**
 
