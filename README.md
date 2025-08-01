@@ -26,9 +26,9 @@
 #### Languages
 
 <p align="left">
-    <img src="https://go-skill-icons.vercel.app/api/icons?i=html" />
+    <img src="https://go-skill-icons.vercel.app/api/icons?i=c,cpp,html" />
     <img src="https://skillicons.dev/icons?i=css" />
-    <img src="https://go-skill-icons.vercel.app/api/icons?i=cpp,c,js,python" />
+    <img src="https://go-skill-icons.vercel.app/api/icons?i=js,python" />
 </p>
 
 #### Frameworks
