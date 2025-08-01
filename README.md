@@ -10,9 +10,9 @@
 
 - 🌱 I’m currently learning **Flutter**
 
-- 👨‍💻 All of my projects are available at [https://rahul-mishra-myportfolio.vercel.app/](https://rahul-mishra-myportfolio.vercel.app/)
+- 👨‍💻 Visit my [portfolio][https://rahul-mishra-myportfolio.vercel.app/](https://rahul-mishra-myportfolio.vercel.app/)
 
-- 📫 How to reach me **rahulamishra1305@gmail.com**
+- 📫 You can contact me at  **rahulamishra1305@gmail.com**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
