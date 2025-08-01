@@ -62,12 +62,10 @@
     <img src="https://go-skill-icons.vercel.app/api/icons?i=nodejs" />
 </p>
 
-<!-- <p align="left">
-    <img src="https://skillicons.dev/icons?i=html,css,javascript,typescript,threejs,c,java,python,react,nextjs,tailwind,styledcomponents,nodejs,expressjs,prisma,mysql,postgres,mongo,firebase,git,github,postman,figma,vscode,idea,eclipse,npm,yarn,docker,redux" />
-</p> -->
+
 
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=rahulm1305&show_icons=true&locale=en&layout=compact" alt="rahulm1305" /></p>
-
+</br>
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=rahulm1305&show_icons=true&locale=en" alt="rahulm1305" /></p>
 
 
