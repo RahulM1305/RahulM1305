@@ -46,7 +46,7 @@
 #### Databases
 
 <p align="left">
-    <img src="https://go-skill-icons.vercel.app/api/icons?i=mysql,postgres,mongo" />
+    <img src="https://go-skill-icons.vercel.app/api/icons?i=mysql,sqlite,mongo" />
     <img src="https://skillicons.dev/icons?i=firebase" />
 </p>
 
@@ -65,7 +65,6 @@
 
 
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=rahulm1305&show_icons=true&locale=en&layout=compact" alt="rahulm1305" /></p>
-</br>
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=rahulm1305&show_icons=true&locale=en" alt="rahulm1305" /></p>
 
 
