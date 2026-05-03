@@ -10,9 +10,6 @@
 
 
 
-
-
-
 - 🌱 I’m currently learning **Flutter**
 
 - 👨‍💻 Visit my [portfolio](https://rahul-mishra-myportfolio.vercel.app/)
@@ -66,6 +63,8 @@
 <p align="left">
     <img src="https://go-skill-icons.vercel.app/api/icons?i=nodejs" />
 </p>
+
+
 
 
 
