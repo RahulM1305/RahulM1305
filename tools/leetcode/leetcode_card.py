@@ -15,7 +15,7 @@ import sys
 import urllib.request
 from xml.sax.saxutils import escape
 
-W, H = 1200, 460
+W, H = 1200, 720
 SANS = "'Segoe UI','Inter','Helvetica Neue',Helvetica,Arial,sans-serif"
 MONO = "'JetBrains Mono','Fira Code','SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace"
 ORANGE, EASY, MED, HARD = "#ffa116", "#00b8a3", "#ffc01e", "#ef4743"
@@ -196,6 +196,43 @@ def iso_heatmap(cal, ox, oy, c=15):
     return "".join(out), mx
 
 
+def year_heatmap(cal, x0, y0, width):
+    """Full-year calendar heatmap (53 weekly columns), LeetCode-profile style."""
+    today = dt.datetime.now(dt.timezone.utc).date()
+    first = today - dt.timedelta(days=364)
+    first -= dt.timedelta(days=(first.weekday() + 1) % 7)            # back to Sunday
+    by_day = {}
+    for ts, n in cal.items():
+        day = dt.datetime.fromtimestamp(ts, dt.timezone.utc).date()
+        by_day[day] = by_day.get(day, 0) + n
+    ndays = (today - first).days + 1
+    cols = (ndays + 6) // 7
+    pitch = width / cols
+    cell = pitch - 4
+    nz = sorted(v for k, v in by_day.items() if first <= k <= today and v > 0)
+    qs = [nz[int(len(nz) * q)] for q in (0.25, 0.5, 0.75)] if nz else [1, 2, 3]
+    colors = ["#1b2333", "#7a4a0f", "#b8680f", "#f08c12", "#ffc04d"]
+    out, last_month = [], None
+    for k in range(ndays):
+        d = first + dt.timedelta(days=k)
+        c, r = k // 7, k % 7
+        x, y = x0 + c * pitch, y0 + 22 + r * pitch
+        if r == 0 and d.month != last_month and d.day <= 7 and c < cols - 2:
+            out.append(f'<text x="{x:.1f}" y="{y0 + 10}" font-family="{MONO}" font-size="12" fill="{MUTED}">{d.strftime("%b")}</text>')
+            last_month = d.month
+        n = by_day.get(d, 0)
+        lvl = 0 if n == 0 else 1 + sum(1 for q in qs if n > q)
+        out.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="3" fill="{colors[lvl]}"><title>{d.isoformat()}: {n} submission{"s" if n != 1 else ""}</title></rect>')
+        if d == today:
+            out.append(f'<rect x="{x - 2:.1f}" y="{y - 2:.1f}" width="{cell + 4:.1f}" height="{cell + 4:.1f}" rx="4" fill="none" stroke="{ORANGE}" stroke-width="2">'
+                       f'<animate attributeName="opacity" values="1;0.2;1" dur="1.6s" repeatCount="indefinite"/></rect>')
+    gh = 22 + 7 * pitch
+    # light sweep across the year
+    out.append(f'<rect y="{y0 + 18}" width="60" height="{7 * pitch + 6:.1f}" fill="url(#sweep)" style="mix-blend-mode:screen">'
+               f'<animate attributeName="x" values="{x0 - 80};{x0 + width + 20}" dur="7s" repeatCount="indefinite"/></rect>')
+    return "".join(out), gh
+
+
 # ------------------------------------------------------------------ card
 def render(username, d):
     tot, s = d["total"], d["solved"]
@@ -206,12 +243,15 @@ def render(username, d):
     rating = fmt(d["rating"])
     top = f'  top {d["top"]:.1f}%' if d.get("top") else ""
     updated = dt.datetime.now(dt.timezone.utc).strftime("%d %b %Y")
+    yh, _ = year_heatmap(d["calendar"], 40, 512, W - 80)
+    year_total = sum(v for k, v in d["calendar"].items() if k >= (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=365)).timestamp())
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="LeetCode stats for {escape(username)}">
 <title>LeetCode — {solved_all} problems solved</title>
 <defs>
 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <linearGradient id="lbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b0f1c"/><stop offset="1" stop-color="#1a0f24"/></linearGradient>
 <radialGradient id="lspot" cx="0.17" cy="0.55" r="0.35"><stop offset="0" stop-color="{ORANGE}" stop-opacity="0.18"/><stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/></radialGradient>
+<linearGradient id="sweep" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="{ORANGE}" stop-opacity="0.22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
 <clipPath id="lc"><rect width="{W}" height="{H}" rx="22"/></clipPath>
 </defs>
 <g clip-path="url(#lc)">
@@ -237,6 +277,10 @@ def render(username, d):
 <g transform="translate(930,428)" font-family="{MONO}" font-size="11" fill="{MUTED}"><text x="0" y="0">less</text>
 {"".join(f'<rect x="{34 + k * 16}" y="-10" width="12" height="12" rx="2" fill="{c}"/>' for k, c in enumerate(["#1b2333", "#7a4a0f", "#b8680f", "#f08c12", "#ffc04d"]))}
 <text x="{34 + 5 * 16 + 4}" y="0">more</text></g>
+<line x1="36" y1="456" x2="{W - 36}" y2="456" stroke="{LINE}"/>
+<text x="40" y="492" font-family="{SANS}" font-size="20" font-weight="800" fill="{TEXT}">{fmt(year_total)} <tspan font-weight="500" font-size="16" fill="{MUTED}">submissions in the past year</tspan></text>
+<text x="{W - 40}" y="492" text-anchor="end" font-family="{MONO}" font-size="14" fill="{MUTED}">active days <tspan fill="{TEXT}">{fmt(d["active"])}</tspan>   ·   max streak <tspan fill="{TEXT}">{fmt(d["streak"])}</tspan></text>
+{yh}
 </g>
 <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="22" fill="none" stroke="{LINE}" stroke-width="1.5"/>
 <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="22" fill="none" stroke="{ORANGE}" stroke-width="2.4" pathLength="1000" stroke-dasharray="110 890" stroke-linecap="round" filter="url(#glow)"><animate attributeName="stroke-dashoffset" values="0;-1000" dur="9s" repeatCount="indefinite"/></rect>
