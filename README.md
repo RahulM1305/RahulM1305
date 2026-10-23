@@ -90,4 +90,9 @@
 
 <br/><br/>
 
+<img src="./assets/h-leetcode.svg" alt="06 // LeetCode" width="100%" />
+<a href="https://leetcode.com/u/RahulM1305/"><img src="./assets/leetcode.svg" alt="LeetCode stats for RahulM1305" width="100%" /></a>
+
+<br/><br/>
+
 <img src="./assets/footer-v3.svg" alt="Thank you in 15 languages" width="100%" />

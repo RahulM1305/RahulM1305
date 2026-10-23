@@ -315,6 +315,6 @@ if __name__ == "__main__":
     open(f"{out}/about.svg", "w").write(about())
     for num, title, col, slug in [("01", "ABOUT ME", C["green"], "about"), ("02", "EXPERIENCE", C["cyan"], "experience"),
                                   ("03", "FEATURED PROJECTS", C["pink"], "projects"), ("04", "TECH STACK", C["violet"], "stack"),
-                                  ("05", "GITHUB IN 3D", C["amber"], "github")]:
+                                  ("05", "GITHUB IN 3D", C["amber"], "github"), ("06", "LEETCODE", "#ffa116", "leetcode")]:
         open(f"{out}/h-{slug}.svg", "w").write(header(num, title, col))
     open(f"{out}/footer-v3.svg", "w").write(footer())
