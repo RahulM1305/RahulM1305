@@ -2,18 +2,19 @@ import math, textwrap
 from geo import *
 from hero import floor as hero_floor  # reuse synthwave floor for footer
 import hero
+from objects import model_svg
 
 PROJECTS = [
-    dict(slug="codechoreo", n="01", title="CodeChoreo", tag="REAL-TIME · COLLABORATION", accent=C["cyan"], shape="tess",
+    dict(slug="codechoreo", n="01", title="CodeChoreo", tag="REAL-TIME · COLLABORATION", accent=C["cyan"], shape="laptop",
          desc="Real-time collaborative code editor with live cursors, chat, video calls, a shared whiteboard and AI code suggestions, synced over room-scoped Socket.IO sessions.",
          chips=["React", "Node.js", "Express", "Socket.IO", "WebRTC", "Docker"], foot="live demo on Render"),
-    dict(slug="get-me-a-coffee", n="02", title="Get Me A Coffee", tag="CROWDFUNDING · PAYMENTS", accent=C["amber"], shape="torus",
+    dict(slug="get-me-a-coffee", n="02", title="Get Me A Coffee", tag="CROWDFUNDING · PAYMENTS", accent=C["amber"], shape="cup",
          desc="Patreon-style crowdfunding platform with creator pages, supporter posts, Razorpay one-time and recurring donations, and NextAuth sign-in.",
          chips=["Next.js", "MongoDB", "Razorpay", "NextAuth", "Tailwind"], foot="live demo on Vercel"),
-    dict(slug="video-chat-app", n="03", title="Video Chat App", tag="WEBRTC · PEER-TO-PEER", accent=C["pink"], shape="ico",
+    dict(slug="video-chat-app", n="03", title="Video Chat App", tag="WEBRTC · PEER-TO-PEER", accent=C["pink"], shape="camera",
          desc="Peer-to-peer one-on-one and group video calling with in-call messaging. WebRTC handles media; Socket.IO handles low-latency signalling.",
          chips=["React", "Node.js", "Express", "WebRTC", "Socket.IO"], foot="live demo on Render"),
-    dict(slug="gatepass", n="04", title="GatePass", tag="MOBILE · FLUTTER", accent=C["violet"], shape="octa",
+    dict(slug="gatepass", n="04", title="GatePass", tag="MOBILE · FLUTTER", accent=C["violet"], shape="phone",
          desc="Flutter mobile app that helps gated communities manage visitor entry, backed by Firebase Authentication and Cloud Firestore.",
          chips=["Flutter", "Dart", "Firebase Auth", "Firestore"], foot="source on GitHub"),
 ]
@@ -87,7 +88,7 @@ def project_card(p, idx):
 <rect width="{W}" height="{H}" fill="url(#spot)"/>
 <text x="{W - 24}" y="{H - 22}" text-anchor="end" font-family="{SANS}" font-weight="900" font-size="150" fill="{a}" fill-opacity="0.05">{p["n"]}</text>
 <g stroke="{a}" stroke-opacity="0.07">{"".join(f'<line x1="{x}" y1="0" x2="{x}" y2="{H}"/>' for x in range(0, W, 30))}{"".join(f'<line x1="0" y1="{y}" x2="{W}" y2="{y}"/>' for y in range(0, H, 30))}</g>
-{shape_markup(p["shape"], 505, 94, 46 if p["shape"] == "tess" else 64, a)}
+{model_svg(p["shape"], 498, {"laptop": 104, "cup": 92, "camera": 90, "phone": 90}[p["shape"]], {"laptop": 64, "cup": 80, "camera": 80, "phone": 68}[p["shape"]], a)}
 <text x="36" y="56" font-family="{MONO}" font-size="13" letter-spacing="1.5" fill="{a}">{p["n"]} // {esc(p["tag"])}</text>
 <text x="36" y="112" font-family="{SANS}" font-weight="800" font-size="38" fill="url(#tg)">{esc(p["title"])}</text>
 <rect x="36" y="128" height="3" rx="1.5" fill="{a}" width="0" filter="url(#glow)"><animate attributeName="width" values="0;120;120" keyTimes="0;0.25;1" dur="4s" begin="{idx * 0.3}s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;0.8;1" dur="4s" begin="{idx * 0.3}s" repeatCount="indefinite"/></rect>
