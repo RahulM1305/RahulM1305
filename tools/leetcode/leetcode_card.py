@@ -153,6 +153,8 @@ def iso_heatmap(cal, ox, oy, c=15):
             dt.datetime.fromtimestamp(ts, dt.timezone.utc).date(), 0) + n
     days = [(start + dt.timedelta(days=k)) for k in range(WEEKS * 7)]
     mx = max([by_day.get(d, 0) for d in days] + [1])
+    nz = sorted(by_day.get(d, 0) for d in days if by_day.get(d, 0) > 0)
+    qs = [nz[int(len(nz) * q)] for q in (0.25, 0.5, 0.75)] if nz else [1, 2, 3]
     cs, sn = c * math.cos(math.radians(30)), c * 0.5
     P = lambda i, j, h=0: (ox + (i - j) * cs, oy + (i + j) * sn - h)
     shades = [("#1b2333", "#141a27", "#10151f"), ("#7a4a0f", "#5a360a", "#462a08"), ("#b8680f", "#8a4e0b", "#6b3c08"),
@@ -161,7 +163,7 @@ def iso_heatmap(cal, ox, oy, c=15):
     for k, d in enumerate(days):
         i, j = k // 7, k % 7
         n = by_day.get(d, 0) if d <= today else 0
-        lvl = 0 if n == 0 else min(4, 1 + int(3 * n / mx + 0.5) if mx > 1 else 2)
+        lvl = 0 if n == 0 else 1 + sum(1 for q in qs if n > q)   # quartiles of active days
         cells.append((i + j, i, j, lvl, d > today))
     cells.sort()
     out = []
@@ -227,7 +229,7 @@ def render(username, d):
 {bar(410, 186, 360, "Medium", MED, s.get("Medium", 0), tot.get("Medium", 0), 0.15)}
 {bar(410, 244, 360, "Hard", HARD, s.get("Hard", 0), tot.get("Hard", 0), 0.3)}
 {tile(410, 300, 174, "GLOBAL RANK", "#" + fmt(d["ranking"]) if d["ranking"] else "—")}
-{tile(596, 300, 174, "CONTEST RATING", rating, top)}
+{tile(596, 300, 174, "CONTEST RATING", rating, top) if d["rating"] else tile(596, 300, 174, "SUBMISSIONS · 1Y", fmt(sum(d["calendar"].values())))}
 {tile(410, 374, 174, "BEST STREAK", fmt(d["streak"]), " days" if d["streak"] is not None else "")}
 {tile(596, 374, 174, "ACTIVE DAYS", fmt(d["active"]), " this year" if d["active"] is not None else "")}
 <text x="1004" y="116" text-anchor="middle" font-family="{MONO}" font-size="13" fill="{MUTED}">submissions · last {WEEKS} weeks</text>
