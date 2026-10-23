@@ -269,7 +269,7 @@ def render(username, d):
 {bar(410, 186, 360, "Medium", MED, s.get("Medium", 0), tot.get("Medium", 0), 0.15)}
 {bar(410, 244, 360, "Hard", HARD, s.get("Hard", 0), tot.get("Hard", 0), 0.3)}
 {tile(410, 300, 174, "GLOBAL RANK", "#" + fmt(d["ranking"]) if d["ranking"] else "—")}
-{tile(596, 300, 174, "CONTEST RATING", rating, top) if d["rating"] else tile(596, 300, 174, "SUBMISSIONS · 1Y", fmt(sum(d["calendar"].values())))}
+{tile(596, 300, 174, "CONTEST RATING", rating, top) if d["rating"] else tile(596, 300, 174, "SUBMISSIONS · 1Y", fmt(year_total))}
 {tile(410, 374, 174, "BEST STREAK", fmt(d["streak"]), " days" if d["streak"] is not None else "")}
 {tile(596, 374, 174, "ACTIVE DAYS", fmt(d["active"]), " this year" if d["active"] is not None else "")}
 <text x="1004" y="116" text-anchor="middle" font-family="{MONO}" font-size="13" fill="{MUTED}">submissions · last {WEEKS} weeks</text>
