@@ -90,4 +90,4 @@
 
 <br/><br/>
 
-<img src="./assets/footer-v2.svg" alt="Thank you in 15 languages" width="100%" />
+<img src="./assets/footer-v3.svg" alt="Thank you in 15 languages" width="100%" />

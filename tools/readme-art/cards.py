@@ -283,8 +283,8 @@ def footer():
         ty = "0 14;0 14;0 0;0 0;0 -14;0 -14" if i else "0 14;0 0;0 0;0 -14;0 -14"
         words.append(f'''<g opacity="0"><animate attributeName="opacity" values="{ov}" keyTimes="{kt}" dur="{cyc:.1f}s" repeatCount="indefinite"/>
 <animateTransform attributeName="transform" type="translate" values="{ty}" keyTimes="{kt}" dur="{cyc:.1f}s" repeatCount="indefinite"/>
-<text x="{W / 2}" y="86" text-anchor="middle" font-family="{WORLD}" font-weight="800" font-size="48" fill="url(#tg)" filter="url(#glow)">{esc(word)}</text>
-<text x="{W / 2}" y="122" text-anchor="middle" font-family="{MONO}" font-size="14" letter-spacing="3" fill="{C["muted"]}">— {lang.upper()} —</text></g>''')
+<text x="{W / 2}" y="84" text-anchor="middle" font-family="{WORLD}" font-weight="800" font-size="48" fill="url(#tg)" filter="url(#glow)">{esc(word)}</text>
+</g>''')
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Thank you in {n} languages">
 <title>Thank you — in {n} languages</title>
 <defs>{GLOW}
@@ -301,6 +301,7 @@ def footer():
 {fl}
 <rect y="{HOR - 1}" width="{W}" height="2" fill="url(#hz)" filter="url(#glow)"/>
 {"".join(words)}
+<text x="{W / 2}" y="126" text-anchor="middle" font-family="{MONO}" font-size="15" fill="{C["muted"]}">let&#8217;s build something great together  ·  $ exit 0</text>
 </g>
 </svg>'''
 
@@ -316,4 +317,4 @@ if __name__ == "__main__":
                                   ("03", "FEATURED PROJECTS", C["pink"], "projects"), ("04", "TECH STACK", C["violet"], "stack"),
                                   ("05", "GITHUB IN 3D", C["amber"], "github")]:
         open(f"{out}/h-{slug}.svg", "w").write(header(num, title, col))
-    open(f"{out}/footer-v2.svg", "w").write(footer())
+    open(f"{out}/footer-v3.svg", "w").write(footer())
