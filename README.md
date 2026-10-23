@@ -9,6 +9,10 @@
   <a href="mailto:rahulamishra1305@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
 </p>
 
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=RahulM1305&label=PROFILE%20VIEWS&color=a855f7&style=for-the-badge&abbreviated=true" alt="Profile views" />
+</p>
+
 <br/>
 
 <img src="./assets/h-about.svg" alt="01 // About me" width="100%" />
