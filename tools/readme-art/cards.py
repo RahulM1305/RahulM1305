@@ -285,7 +285,7 @@ if __name__ == "__main__":
     import sys, os
     out = sys.argv[1]
     for i, p in enumerate(PROJECTS):
-        open(f"{out}/project-{p['slug']}.svg", "w").write(project_card(p, i))
+        open(f"{out}/project-{p['slug']}-v2.svg", "w").write(project_card(p, i))
     open(f"{out}/devit.svg", "w").write(devit())
     open(f"{out}/about.svg", "w").write(about())
     for num, title, col, slug in [("01", "ABOUT ME", C["green"], "about"), ("02", "EXPERIENCE", C["cyan"], "experience"),

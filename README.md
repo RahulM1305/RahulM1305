@@ -30,13 +30,13 @@
 <table>
 <tr>
 <td width="50%" align="center">
-  <a href="https://github.com/RahulM1305/CodeChoreo"><img src="./assets/project-codechoreo.svg" alt="CodeChoreo — real-time collaborative code editor" width="100%" /></a>
+  <a href="https://github.com/RahulM1305/CodeChoreo"><img src="./assets/project-codechoreo-v2.svg" alt="CodeChoreo — real-time collaborative code editor" width="100%" /></a>
   <br/>
   <a href="https://codechoreo.onrender.com"><img src="https://img.shields.io/badge/▶_Live_Demo-22d3ee?style=flat-square" alt="Live demo" /></a>
   <a href="https://github.com/RahulM1305/CodeChoreo"><img src="https://img.shields.io/badge/Source-0d1117?style=flat-square&logo=github" alt="Source" /></a>
 </td>
 <td width="50%" align="center">
-  <a href="https://github.com/RahulM1305/Get-Me-A-Coffee"><img src="./assets/project-get-me-a-coffee.svg" alt="Get Me A Coffee — crowdfunding platform" width="100%" /></a>
+  <a href="https://github.com/RahulM1305/Get-Me-A-Coffee"><img src="./assets/project-get-me-a-coffee-v2.svg" alt="Get Me A Coffee — crowdfunding platform" width="100%" /></a>
   <br/>
   <a href="https://get-me-a-coffee-two.vercel.app/"><img src="https://img.shields.io/badge/▶_Live_Demo-fbbf24?style=flat-square" alt="Live demo" /></a>
   <a href="https://github.com/RahulM1305/Get-Me-A-Coffee"><img src="https://img.shields.io/badge/Source-0d1117?style=flat-square&logo=github" alt="Source" /></a>
@@ -44,13 +44,13 @@
 </tr>
 <tr>
 <td width="50%" align="center">
-  <a href="https://github.com/RahulM1305/Video-Chat-App"><img src="./assets/project-video-chat-app.svg" alt="Video Chat App — WebRTC video calling" width="100%" /></a>
+  <a href="https://github.com/RahulM1305/Video-Chat-App"><img src="./assets/project-video-chat-app-v2.svg" alt="Video Chat App — WebRTC video calling" width="100%" /></a>
   <br/>
   <a href="https://vidchat-app-088n.onrender.com/"><img src="https://img.shields.io/badge/▶_Live_Demo-ff3ea5?style=flat-square" alt="Live demo" /></a>
   <a href="https://github.com/RahulM1305/Video-Chat-App"><img src="https://img.shields.io/badge/Source-0d1117?style=flat-square&logo=github" alt="Source" /></a>
 </td>
 <td width="50%" align="center">
-  <a href="https://github.com/RahulM1305/GatePass"><img src="./assets/project-gatepass.svg" alt="GatePass — Flutter visitor management app" width="100%" /></a>
+  <a href="https://github.com/RahulM1305/GatePass"><img src="./assets/project-gatepass-v2.svg" alt="GatePass — Flutter visitor management app" width="100%" /></a>
   <br/>
   <a href="https://github.com/RahulM1305/GatePass"><img src="https://img.shields.io/badge/Source-0d1117?style=flat-square&logo=github" alt="Source" /></a>
 </td>
