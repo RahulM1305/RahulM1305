@@ -255,28 +255,52 @@ def header(num, title, color):
 </svg>'''
 
 
+THANKS = [("Thank you", "English"), ("ಧನ್ಯವಾದಗಳು", "Kannada"), ("धन्यवाद", "Hindi"), ("आभारी आहे", "Marathi"),
+          ("ਧੰਨਵਾਦ", "Punjabi"), ("நன்றி", "Tamil"), ("ధన్యవాదాలు", "Telugu"), ("ধন্যবাদ", "Bengali"),
+          ("આભાર", "Gujarati"), ("ありがとう", "Japanese"), ("감사합니다", "Korean"), ("谢谢", "Chinese"),
+          ("Gracias", "Spanish"), ("Merci", "French"), ("Danke", "German")]
+WORLD = ("'Segoe UI','Nirmala UI','Noto Sans','Noto Sans Kannada','Noto Sans Devanagari','Noto Sans Gurmukhi',"
+         "'Noto Sans Tamil','Noto Sans Telugu','Noto Sans Bengali','Noto Sans Gujarati','Kohinoor Devanagari',"
+         "'Hiragino Sans','Yu Gothic','Noto Sans CJK JP','Apple SD Gothic Neo','Malgun Gothic','PingFang SC',"
+         "'Microsoft YaHei',Helvetica,Arial,sans-serif")
+
+
 def footer():
-    W, H = 1200, 230
+    W, H, HOR = 1200, 260, 152
     old = (hero.W, hero.H, hero.HOR)
-    hero.H, hero.HOR = H, 120
+    hero.H, hero.HOR = H, HOR
     fl = hero.floor()
     hero.W, hero.H, hero.HOR = old
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Thanks for visiting">
-<title>Thanks for stopping by</title>
+    slot, n = 2.2, len(THANKS)
+    cyc = slot * n
+    words = []
+    for i, (word, lang) in enumerate(THANKS):
+        a = i / n
+        f = lambda x: f"{a + x / n:.4f}"
+        # fade+rise in (0-15% of slot), hold, fade+rise out (85-100%)
+        kt = f"0;{f(0)};{f(0.15)};{f(0.85)};{f(1)};1" if i else f"0;{f(0.15)};{f(0.85)};{f(1)};1"
+        ov = "0;0;1;1;0;0" if i else "0;1;1;0;0"
+        ty = "0 14;0 14;0 0;0 0;0 -14;0 -14" if i else "0 14;0 0;0 0;0 -14;0 -14"
+        words.append(f'''<g opacity="0"><animate attributeName="opacity" values="{ov}" keyTimes="{kt}" dur="{cyc:.1f}s" repeatCount="indefinite"/>
+<animateTransform attributeName="transform" type="translate" values="{ty}" keyTimes="{kt}" dur="{cyc:.1f}s" repeatCount="indefinite"/>
+<text x="{W / 2}" y="86" text-anchor="middle" font-family="{WORLD}" font-weight="800" font-size="48" fill="url(#tg)" filter="url(#glow)">{esc(word)}</text>
+<text x="{W / 2}" y="122" text-anchor="middle" font-family="{MONO}" font-size="14" letter-spacing="3" fill="{C["muted"]}">— {lang.upper()} —</text></g>''')
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Thank you in {n} languages">
+<title>Thank you — in {n} languages</title>
 <defs>{GLOW}
-<linearGradient id="fade" x1="0" y1="120" x2="0" y2="{H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.4" stop-color="#fff" stop-opacity="0.8"/><stop offset="1" stop-color="#fff"/></linearGradient>
-<mask id="floorMask"><rect x="0" y="120" width="{W}" height="{H - 120}" fill="url(#fade)"/></mask>
+<linearGradient id="fade" x1="0" y1="{HOR}" x2="0" y2="{H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.4" stop-color="#fff" stop-opacity="0.8"/><stop offset="1" stop-color="#fff"/></linearGradient>
+<mask id="floorMask"><rect x="0" y="{HOR}" width="{W}" height="{H - HOR}" fill="url(#fade)"/></mask>
 <linearGradient id="fsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{C["bg0"]}"/><stop offset="1" stop-color="#2a0b45"/></linearGradient>
 <linearGradient id="hz" x1="0" x2="1"><stop offset="0" stop-color="{C["pink"]}" stop-opacity="0"/><stop offset="0.5" stop-color="{C["pink"]}"/><stop offset="1" stop-color="{C["pink"]}" stop-opacity="0"/></linearGradient>
+<linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="350" y1="0" x2="850" y2="0"><stop offset="0" stop-color="{C["cyan"]}"/><stop offset="0.5" stop-color="{C["green"]}"/><stop offset="1" stop-color="{C["violet"]}"/></linearGradient>
 <clipPath id="fc"><rect width="{W}" height="{H}" rx="22"/></clipPath>
 </defs>
 <g clip-path="url(#fc)">
 <rect width="{W}" height="{H}" fill="url(#fsky)"/>
-<rect y="120" width="{W}" height="{H - 120}" fill="#0a0418"/>
+<rect y="{HOR}" width="{W}" height="{H - HOR}" fill="#0a0418"/>
 {fl}
-<rect y="119" width="{W}" height="2" fill="url(#hz)" filter="url(#glow)"/>
-<text x="{W / 2}" y="62" text-anchor="middle" font-family="{SANS}" font-weight="800" font-size="30" fill="{C["text"]}">Thanks for stopping by <tspan fill="{C["green"]}">✦</tspan></text>
-<text x="{W / 2}" y="94" text-anchor="middle" font-family="{MONO}" font-size="15" fill="{C["muted"]}">let&#8217;s build something great together  ·  $ exit 0</text>
+<rect y="{HOR - 1}" width="{W}" height="2" fill="url(#hz)" filter="url(#glow)"/>
+{"".join(words)}
 </g>
 </svg>'''
 
@@ -292,4 +316,4 @@ if __name__ == "__main__":
                                   ("03", "FEATURED PROJECTS", C["pink"], "projects"), ("04", "TECH STACK", C["violet"], "stack"),
                                   ("05", "GITHUB IN 3D", C["amber"], "github")]:
         open(f"{out}/h-{slug}.svg", "w").write(header(num, title, col))
-    open(f"{out}/footer.svg", "w").write(footer())
+    open(f"{out}/footer-v2.svg", "w").write(footer())
