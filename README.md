@@ -6,7 +6,6 @@
   <a href="https://rahul-mishra-myportfolio.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-00F5A0?style=for-the-badge&logo=vercel&logoColor=black" alt="Portfolio" /></a>
   <a href="https://www.linkedin.com/in/rahulm1305/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
   <a href="https://leetcode.com/u/RahulM1305/"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" alt="LeetCode" /></a>
-  <a href="https://x.com/RahulM1305"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" /></a>
   <a href="mailto:rahulamishra1305@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
 </p>
 
