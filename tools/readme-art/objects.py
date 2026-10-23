@@ -44,40 +44,49 @@ def shift(lines, dx=0, dy=0, dz=0, s=1.0):
 
 # ---------------------------------------------------------------- models
 def laptop():
+    """Keyboard faces the viewer (-z); the screen is hinged at the far edge (+z) and leans back."""
     L = []
-    w, d, t = 1.7, 1.12, 0.07
-    yb = -0.42
-    L += box(-w / 2, w / 2, yb - t, yb, -d / 2, d / 2)                       # base slab
-    # keyboard rows + trackpad on top face
-    for i in range(4):
-        z = -d / 2 + 0.16 + i * 0.12
-        L.append([(-w / 2 + 0.16, yb + .001, z), (w / 2 - 0.16, yb + .001, z)])
-    for i in range(7):
-        x = -w / 2 + 0.16 + i * (w - 0.32) / 6
-        L.append([(x, yb + .001, -d / 2 + 0.16), (x, yb + .001, -d / 2 + 0.52)])
-    L.append([(-0.3, yb, 0.2), (0.3, yb, 0.2), (0.3, yb, 0.47), (-0.3, yb, 0.47), (-0.3, yb, 0.2)])
-    # screen, hinged at the back edge, tilted back 14 deg
-    a = math.radians(14)
-    hinge = (0, yb, -d / 2)
-    up, nrm = (0, math.cos(a), -math.sin(a)), (0, math.sin(a), math.cos(a))
-    H = 1.08
+    w, d, t = 1.72, 1.16, 0.06
+    yb = -0.40
+    zf, zb = -d / 2, d / 2                       # front (near) / back (far) edges
+    L += box(-w / 2, w / 2, yb - t, yb, zf, zb)
+    y = yb + 0.002
+    # keyboard: 5 rows x 13 keys grid
+    kx0, kx1, kz0, kz1 = -0.68, 0.68, 0.02, 0.46
+    for i in range(6):
+        z = kz0 + (kz1 - kz0) * i / 5
+        L.append([(kx0, y, z), (kx1, y, z)])
+    for j in range(14):
+        x = kx0 + (kx1 - kx0) * j / 13
+        L.append([(x, y, kz0 + (kz1 - kz0) / 5), (x, y, kz1)])
+    L.append([(-0.34, y, kz0), (-0.34, y, kz0 + (kz1 - kz0) / 5)])      # spacebar edges
+    L.append([(0.34, y, kz0), (0.34, y, kz0 + (kz1 - kz0) / 5)])
+    # trackpad
+    L.append([(-0.3, y, -0.08), (0.3, y, -0.08), (0.3, y, -0.44), (-0.3, y, -0.44), (-0.3, y, -0.08)])
+    # screen (lid) hinged at back edge, opened ~110 deg
+    a = math.radians(18)
+    hy, hz = yb, zb - 0.02
+    up, nrm = (math.cos(a), math.sin(a)), (math.sin(a), -math.cos(a))   # (dy, dz); nrm points at the viewer
+    Hs = 1.06
 
     def S(u, v, off=0.0):
-        return (u, hinge[1] + up[1] * v + nrm[1] * off, hinge[2] + up[2] * v + nrm[2] * off)
-    for off in (0.0, -0.05):
-        L.append([S(-w / 2, 0, off), S(w / 2, 0, off), S(w / 2, H, off), S(-w / 2, H, off), S(-w / 2, 0, off)])
+        return (u, hy + up[0] * v + nrm[0] * off, hz + up[1] * v + nrm[1] * off)
+    for off in (0.0, -0.045):
+        L.append([S(-w / 2, 0, off), S(w / 2, 0, off), S(w / 2, Hs, off), S(-w / 2, Hs, off), S(-w / 2, 0, off)])
     for u in (-w / 2, w / 2):
-        L.append([S(u, H, 0), S(u, H, -0.05)])
-    b = 0.08
-    L.append([S(-w / 2 + b, b, .002), S(w / 2 - b, b, .002), S(w / 2 - b, H - b, .002), S(-w / 2 + b, H - b, .002), S(-w / 2 + b, b, .002)])
-    # "code" on screen
-    lines = [(0.0, 0.55), (0.12, 0.9), (0.12, 0.6), (0.24, 0.75), (0.12, 0.45), (0.0, 0.3)]
-    for i, (indent, ln) in enumerate(lines):
-        v = H - b - 0.14 - i * 0.13
-        x0 = -w / 2 + b + 0.12 + indent
-        L.append([S(x0, v, .003), S(x0 + ln, v, .003)])
-    L.append([S(-0.05, H - b / 2, .002), S(0.05, H - b / 2, .002)])        # webcam
-    return shift(L, dy=-0.05, dz=0.12, s=1.0)
+        L.append([S(u, Hs, 0), S(u, Hs, -0.045)])
+        L.append([S(u, 0, 0), S(u, 0, -0.045)])
+    b = 0.07
+    L.append([S(-w / 2 + b, b + 0.03, .004), S(w / 2 - b, b + 0.03, .004), S(w / 2 - b, Hs - b, .004),
+              S(-w / 2 + b, Hs - b, .004), S(-w / 2 + b, b + 0.03, .004)])
+    code = [(0.0, 0.5), (0.12, 0.85), (0.24, 0.55), (0.24, 0.7), (0.12, 0.4), (0.0, 0.25), (0.0, 0.6)]
+    for i, (ind, ln) in enumerate(code):
+        v = Hs - b - 0.12 - i * 0.115
+        x0 = -w / 2 + b + 0.1 + ind
+        L.append([S(x0, v, .006), S(x0 + ln, v, .006)])
+    L.append([S(-0.03, Hs - b / 2, .004), S(0.03, Hs - b / 2, .004)])     # webcam
+    L.append([(-w / 2 + 0.1, yb + 0.01, hz), (w / 2 - 0.1, yb + 0.01, hz)]) # hinge
+    return shift(L, dy=-0.06, dz=-0.15)
 
 
 def cup():
@@ -215,9 +224,9 @@ def point_svg(p, n, mode, cx, cy, R, dur, color, r=4.5, **kw):
 
 def model_svg(kind, cx, cy, R, color, dur=14, n=72):
     if kind == "laptop":
-        return poly_svg(pose_frames(laptop(), n, "sway", tilt=0.42, amp=0.8, base=-0.35), cx, cy, R, dur, color, op=(0.3, 1))
+        return poly_svg(pose_frames(laptop(), n, "sway", tilt=-0.42, amp=0.55, base=0.45), cx, cy, R, dur, color, op=(0.3, 1))
     if kind == "cup":
-        return poly_svg(pose_frames(cup(), n, "spin", tilt=0.38), cx, cy, R, dur, color, width=1.3, op=(0.22, 1))
+        return poly_svg(pose_frames(cup(), n, "spin", tilt=-0.38), cx, cy, R, dur, color, width=1.3, op=(0.22, 1))
     if kind == "camera":
         kw = dict(tilt=0.3, amp=0.9, base=-0.6)
         body = poly_svg(pose_frames(camera(), n, "sway", **kw), cx, cy, R, dur, color, op=(0.25, 1))

@@ -88,7 +88,7 @@ def project_card(p, idx):
 <rect width="{W}" height="{H}" fill="url(#spot)"/>
 <text x="{W - 24}" y="{H - 22}" text-anchor="end" font-family="{SANS}" font-weight="900" font-size="150" fill="{a}" fill-opacity="0.05">{p["n"]}</text>
 <g stroke="{a}" stroke-opacity="0.07">{"".join(f'<line x1="{x}" y1="0" x2="{x}" y2="{H}"/>' for x in range(0, W, 30))}{"".join(f'<line x1="0" y1="{y}" x2="{W}" y2="{y}"/>' for y in range(0, H, 30))}</g>
-{model_svg(p["shape"], 498, {"laptop": 104, "cup": 92, "camera": 90, "phone": 90}[p["shape"]], {"laptop": 64, "cup": 80, "camera": 80, "phone": 68}[p["shape"]], a)}
+{model_svg(p["shape"], 498, {"laptop": 90, "cup": 82, "camera": 86, "phone": 86}[p["shape"]], {"laptop": 58, "cup": 70, "camera": 76, "phone": 64}[p["shape"]], a)}
 <text x="36" y="56" font-family="{MONO}" font-size="13" letter-spacing="1.5" fill="{a}">{p["n"]} // {esc(p["tag"])}</text>
 <text x="36" y="112" font-family="{SANS}" font-weight="800" font-size="38" fill="url(#tg)">{esc(p["title"])}</text>
 <rect x="36" y="128" height="3" rx="1.5" fill="{a}" width="0" filter="url(#glow)"><animate attributeName="width" values="0;120;120" keyTimes="0;0.25;1" dur="4s" begin="{idx * 0.3}s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;0.8;1" dur="4s" begin="{idx * 0.3}s" repeatCount="indefinite"/></rect>
