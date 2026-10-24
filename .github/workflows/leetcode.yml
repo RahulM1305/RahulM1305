@@ -2,7 +2,7 @@ name: Update LeetCode card
 
 on:
   schedule:
-    - cron: "41 1 * * *"     # daily, ~07:11 IST
+    - cron: "41 1 * * *"     # daily, ~07:11 IST (GitHub may start it a few hours late)
   workflow_dispatch:
   push:
     branches: [main]
@@ -13,21 +13,41 @@ on:
 permissions:
   contents: write
 
+# Never run two card updates at once.
+concurrency:
+  group: leetcode-card
+  cancel-in-progress: false
+
 jobs:
   card:
     runs-on: ubuntu-latest
     steps:
+      # Always start from the latest main, even when re-running an old run.
       - uses: actions/checkout@v5
+        with:
+          ref: main
 
       - name: Render card from LeetCode stats
-        run: python3 tools/leetcode/leetcode_card.py RahulM1305 assets/leetcode.svg
+        run: python3 tools/leetcode/leetcode_card.py RahulM1305 "$RUNNER_TEMP/leetcode.svg"
 
-      - name: Commit & push
+      - name: Commit & push (retry on races, never conflicts)
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add assets/leetcode.svg
-          if git commit -m "Update LeetCode card"; then
-            git pull --rebase
-            git push
-          fi
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp "$RUNNER_TEMP/leetcode.svg" assets/leetcode.svg
+            git add assets/leetcode.svg
+            if git diff --cached --quiet; then
+              echo "Card already up to date."
+              exit 0
+            fi
+            git commit -m "Update LeetCode card"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push raced with another commit; retrying ($attempt)…"
+            sleep $((attempt * 5))
+          done
+          exit 1
